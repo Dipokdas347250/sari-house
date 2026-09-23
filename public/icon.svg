@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512" role="img" aria-label="শাড়িঘর">
+  <title>শাড়িঘর</title>
+  <!-- maskable আইকন: পুরো ক্যানভাস ব্র্যান্ড রঙে, মূল মোটিফ নিরাপদ বৃত্তের ভেতরে -->
+  <rect width="512" height="512" fill="#9e1f3a"/>
+  <g fill="none" stroke="#f9f1cc" stroke-linecap="round" stroke-linejoin="round">
+    <!-- জামদানি ফুলের মোটিফ -->
+    <path d="M256 124 L388 256 L256 388 L124 256 Z" stroke-width="16"/>
+    <path d="M256 180 L332 256 L256 332 L180 256 Z" stroke-width="12" opacity="0.75"/>
+    <path d="M256 224 L288 256 L256 288 L224 256 Z" stroke-width="10" fill="#eaca62" opacity="0.95"/>
+    <!-- চার কোণে তাঁতের ছোট বুটি -->
+    <g stroke-width="11" opacity="0.6">
+      <path d="M256 96 v-14"/>
+      <path d="M256 430 v14"/>
+      <path d="M96 256 h-14"/>
+      <path d="M430 256 h14"/>
+    </g>
+  </g>
+</svg>

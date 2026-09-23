@@ -1,0 +1,206 @@
+@import "tailwindcss";
+
+/* ---------------------------------------------------------------
+   শাড়িঘর — ডিজাইন টোকেন
+   রঙের ভাবনা: তাঁতের লাল-মেরুন, সোনালি জরি, আর কাঁচা সুতোর ক্রিম
+   --------------------------------------------------------------- */
+@theme {
+  --font-sans: var(--font-bangla), "Noto Sans Bengali", system-ui, sans-serif;
+  --font-display: var(--font-bangla-display), var(--font-bangla), serif;
+
+  /* মূল ব্র্যান্ড রঙ — গাঢ় মেরুন */
+  --color-brand-50: #fdf3f3;
+  --color-brand-100: #fbe5e6;
+  --color-brand-200: #f7ced1;
+  --color-brand-300: #f0a7ad;
+  --color-brand-400: #e57682;
+  --color-brand-500: #d54a5c;
+  --color-brand-600: #bf2c46;
+  --color-brand-700: #9e1f3a;
+  --color-brand-800: #851d36;
+  --color-brand-900: #731c33;
+  --color-brand-950: #400a17;
+
+  /* সোনালি জরি */
+  --color-gold-50: #fdfaed;
+  --color-gold-100: #f9f1cc;
+  --color-gold-200: #f3e19c;
+  --color-gold-300: #eaca62;
+  --color-gold-400: #e2b238;
+  --color-gold-500: #d29820;
+  --color-gold-600: #b67719;
+  --color-gold-700: #915618;
+  --color-gold-800: #78451b;
+  --color-gold-900: #653a1a;
+
+  /* কাগজ / ক্রিম */
+  --color-cream-50: #fdfbf7;
+  --color-cream-100: #faf5ec;
+  --color-cream-200: #f3e9d7;
+  --color-cream-300: #e9d8bc;
+
+  --color-ink: #2b1d1f;
+  --color-muted: #6f6063;
+
+  --radius-card: 0.9rem;
+  --shadow-soft: 0 10px 30px -12px rgb(64 10 23 / 0.18);
+}
+
+:root {
+  --background: #fdfbf7;
+  --foreground: #2b1d1f;
+  color-scheme: light;
+}
+
+* {
+  border-color: color-mix(in oklab, var(--color-brand-900) 10%, transparent);
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+  /* বাংলা যুক্তাক্ষর ঠিকভাবে দেখানোর জন্য */
+  font-feature-settings: "liga" 1, "kern" 1;
+  text-rendering: optimizeLegibility;
+}
+
+/* বাংলা লেখা একটু বড় লাইন-হাইট চায় */
+p, li, label, input, textarea, button, a {
+  line-height: 1.75;
+}
+
+h1, h2, h3, h4 {
+  line-height: 1.5;
+  letter-spacing: -0.005em;
+}
+
+/* --------------------- কাজে লাগার ইউটিলিটি --------------------- */
+
+@utility container-x {
+  width: 100%;
+  margin-inline: auto;
+  max-width: 80rem;
+  padding-inline: 1rem;
+  @media (width >= 40rem) {
+    padding-inline: 1.5rem;
+  }
+  @media (width >= 64rem) {
+    padding-inline: 2rem;
+  }
+}
+
+/* স্ক্রলবার লুকানো — ক্যাটাগরি স্ট্রিপে কাজে লাগে */
+@utility no-scrollbar {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+/* তাঁতের কাপড়ের মতো হালকা টেক্সচার */
+@utility weave-bg {
+  background-image:
+    repeating-linear-gradient(
+      45deg,
+      color-mix(in oklab, var(--color-brand-900) 3%, transparent) 0 1px,
+      transparent 1px 8px
+    ),
+    repeating-linear-gradient(
+      -45deg,
+      color-mix(in oklab, var(--color-gold-700) 3%, transparent) 0 1px,
+      transparent 1px 8px
+    );
+}
+
+@utility text-balance-bn {
+  text-wrap: balance;
+}
+
+/* ------------------------- অ্যানিমেশন ------------------------- */
+
+@keyframes marquee-x {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+.animate-marquee {
+  animation: marquee-x 28s linear infinite;
+}
+
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fade-up {
+  animation: fade-up 0.5s ease-out both;
+}
+
+@keyframes shimmer {
+  100% { transform: translateX(100%); }
+}
+
+.skeleton {
+  position: relative;
+  overflow: hidden;
+  background: var(--color-cream-200);
+}
+
+.skeleton::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  transform: translateX(-100%);
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgb(255 255 255 / 0.6),
+    transparent
+  );
+  animation: shimmer 1.6s infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-marquee,
+  .animate-fade-up,
+  .skeleton::after {
+    animation: none;
+  }
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+/* ফোকাস রিং — কীবোর্ড ব্যবহারকারীর জন্য */
+:where(a, button, input, select, textarea, [tabindex]):focus-visible {
+  outline: 2px solid var(--color-brand-600);
+  outline-offset: 2px;
+  border-radius: 0.375rem;
+}
+
+/* নম্বর ইনপুটের স্পিনার লুকানো */
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+/* প্রিন্টে (ইনভয়েস) অপ্রয়োজনীয় অংশ বাদ */
+@media print {
+  .no-print {
+    display: none !important;
+  }
+  body {
+    background: #fff;
+  }
+}

@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 1200" width="900" height="1200" role="img" aria-label="কাপড়ের নকশা">
+  <defs>
+    <linearGradient id="ground" x1="0" y1="0" x2="0.4" y2="1">
+      <stop offset="0%" stop-color="#fbf6ea"/>
+      <stop offset="55%" stop-color="#eadfc6"/>
+      <stop offset="100%" stop-color="#fbf6ea"/>
+    </linearGradient>
+
+    <!-- সুতোর বুনন -->
+    <pattern id="weave" width="6" height="6" patternUnits="userSpaceOnUse">
+      <rect width="6" height="6" fill="none"/>
+      <rect x="0" y="0" width="6" height="1" fill="#000" opacity="0.045"/>
+      <rect x="0" y="0" width="1" height="6" fill="#fff" opacity="0.06"/>
+    </pattern>
+
+    
+    <pattern id="motif" width="110" height="110" patternUnits="userSpaceOnUse">
+      <path d="M55 20 C 80 25, 88 55, 68 74 C 55 86, 36 82, 32 66 C 29 52, 42 44, 52 50 C 60 55, 58 66, 50 68"
+            fill="none" stroke="#9e1f3a" stroke-width="2.6" opacity="0.7" stroke-linecap="round"/>
+      <circle cx="55" cy="33" r="2.8" fill="#b67719" opacity="0.7"/>
+    </pattern>
+
+    <!-- কাপড়ের ভাঁজের আলো-ছায়া -->
+    <linearGradient id="fold" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#000" stop-opacity="0.16"/>
+      <stop offset="18%" stop-color="#fff" stop-opacity="0.10"/>
+      <stop offset="38%" stop-color="#000" stop-opacity="0.10"/>
+      <stop offset="60%" stop-color="#fff" stop-opacity="0.12"/>
+      <stop offset="82%" stop-color="#000" stop-opacity="0.12"/>
+      <stop offset="100%" stop-color="#000" stop-opacity="0.18"/>
+    </linearGradient>
+
+    <linearGradient id="sheen" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#fff" stop-opacity="0.18"/>
+      <stop offset="45%" stop-color="#fff" stop-opacity="0"/>
+      <stop offset="100%" stop-color="#fff" stop-opacity="0.10"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="900" height="1200" fill="url(#ground)"/>
+  <g transform="translate(28 28)">
+    <rect x="-28" y="-28" width="956" height="1256" fill="url(#motif)"/>
+  </g>
+  <rect width="900" height="1200" fill="url(#weave)"/>
+
+  <!-- আঁচলের চওড়া পাড় -->
+  <rect x="0" y="940" width="900" height="260" fill="#b67719" opacity="0.92"/>
+  <rect x="0" y="940" width="900" height="260" fill="url(#motif)" opacity="0.5"/>
+  <rect x="0" y="928" width="900" height="12" fill="#9e1f3a" opacity="0.85"/>
+  <rect x="0" y="900" width="900" height="5" fill="#9e1f3a" opacity="0.55"/>
+
+  <!-- পাশের সরু পাড় -->
+  <rect x="0" y="0" width="34" height="1200" fill="#b67719" opacity="0.85"/>
+  <rect x="38" y="0" width="6" height="1200" fill="#9e1f3a" opacity="0.6"/>
+  <rect x="866" y="0" width="34" height="1200" fill="#b67719" opacity="0.85"/>
+  <rect x="856" y="0" width="6" height="1200" fill="#9e1f3a" opacity="0.6"/>
+
+  <rect width="900" height="1200" fill="url(#fold)"/>
+  <rect width="900" height="1200" fill="url(#sheen)"/>
+</svg>

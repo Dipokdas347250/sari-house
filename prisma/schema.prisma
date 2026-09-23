@@ -1,0 +1,201 @@
+// শাড়িঘর — ই-কমার্স ডাটাবেস স্কিমা
+// https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "sqlite"
+}
+
+/// দোকানের অ্যাডমিন / স্টাফ
+model Admin {
+  id        String   @id @default(cuid())
+  name      String
+  email     String   @unique
+  password  String
+  role      String   @default("OWNER") // OWNER | STAFF
+  createdAt DateTime @default(now())
+}
+
+/// পণ্যের ক্যাটাগরি — যেমন জামদানি, কাতান, থ্রি-পিস
+model Category {
+  id          String    @id @default(cuid())
+  name        String
+  slug        String    @unique
+  description String?
+  image       String?
+  sortOrder   Int       @default(0)
+  isActive    Boolean   @default(true)
+  createdAt   DateTime  @default(now())
+  products    Product[]
+
+  @@index([slug])
+}
+
+/// দোকানের পণ্য
+model Product {
+  id           String   @id @default(cuid())
+  name         String
+  slug         String   @unique
+  description  String   @default("")
+  shortDesc    String   @default("")
+  /// বিক্রয়মূল্য (টাকা)
+  price        Int
+  /// কাটা দাম / আগের দাম (টাকা)
+  comparePrice Int?
+  sku          String?
+  stock        Int      @default(0)
+  /// JSON array — ছবির URL
+  images       String   @default("[]")
+  /// JSON array — সাইজ, যেমন ["ফ্রি সাইজ"]
+  sizes        String   @default("[]")
+  /// JSON array — রঙ, যেমন [{"name":"লাল","hex":"#c1121f"}]
+  colors       String   @default("[]")
+  fabric       String?
+  isFeatured   Boolean  @default(false)
+  isActive     Boolean  @default(true)
+  soldCount    Int      @default(0)
+  viewCount    Int      @default(0)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  categoryId String
+  category   Category @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+
+  reviews    Review[]
+  orderItems OrderItem[]
+
+  @@index([slug])
+  @@index([categoryId])
+  @@index([isActive, isFeatured])
+}
+
+/// ক্রেতার রিভিউ
+model Review {
+  id         String   @id @default(cuid())
+  customerName String
+  rating     Int      @default(5)
+  comment    String   @default("")
+  isApproved Boolean  @default(false)
+  createdAt  DateTime @default(now())
+
+  productId String
+  product   Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+
+  @@index([productId, isApproved])
+}
+
+/// অর্ডার
+model Order {
+  id       String @id @default(cuid())
+  orderNo  String @unique
+  /// ক্রেতার তথ্য
+  customerName String
+  phone        String
+  altPhone     String?
+  email        String?
+  division     String
+  district     String
+  address      String
+  note         String?
+
+  subtotal       Int
+  discount       Int     @default(0)
+  deliveryCharge Int     @default(0)
+  total          Int
+  couponCode     String?
+
+  /// cod | bkash | nagad
+  paymentMethod String  @default("cod")
+  senderNumber  String?
+  transactionId String?
+  /// unpaid | paid
+  paymentStatus String  @default("unpaid")
+
+  /// pending | confirmed | processing | shipped | delivered | cancelled
+  status    String   @default("pending")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  items OrderItem[]
+
+  @@index([orderNo])
+  @@index([phone])
+  @@index([status])
+}
+
+model OrderItem {
+  id           String  @id @default(cuid())
+  productName  String
+  productImage String  @default("")
+  productSlug  String  @default("")
+  price        Int
+  quantity     Int     @default(1)
+  size         String?
+  color        String?
+
+  orderId String
+  order   Order  @relation(fields: [orderId], references: [id], onDelete: Cascade)
+
+  productId String?
+  product   Product? @relation(fields: [productId], references: [id], onDelete: SetNull)
+
+  @@index([orderId])
+}
+
+/// কুপন / ডিসকাউন্ট কোড
+model Coupon {
+  id          String    @id @default(cuid())
+  code        String    @unique
+  /// percent | fixed
+  type        String    @default("percent")
+  value       Int
+  minOrder    Int       @default(0)
+  maxDiscount Int?
+  usageLimit  Int?
+  usedCount   Int       @default(0)
+  expiresAt   DateTime?
+  isActive    Boolean   @default(true)
+  createdAt   DateTime  @default(now())
+}
+
+/// হোমপেজের ব্যানার / স্লাইডার
+model Banner {
+  id        String   @id @default(cuid())
+  title     String
+  subtitle  String   @default("")
+  image     String
+  link      String   @default("/products")
+  buttonText String  @default("কিনতে চাই")
+  sortOrder Int      @default(0)
+  isActive  Boolean  @default(true)
+  createdAt DateTime @default(now())
+}
+
+/// সাইটের সেটিংস (key-value)
+model Setting {
+  key   String @id
+  value String @default("")
+}
+
+/// নিউজলেটার সাবস্ক্রাইবার
+model Subscriber {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  createdAt DateTime @default(now())
+}
+
+/// যোগাযোগ ফর্মের বার্তা
+model Message {
+  id        String   @id @default(cuid())
+  name      String
+  phone     String
+  email     String?
+  subject   String   @default("")
+  body      String
+  isRead    Boolean  @default(false)
+  createdAt DateTime @default(now())
+}

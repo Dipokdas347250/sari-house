@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 600" width="600" height="600" role="img" aria-label="ক্যাটাগরি">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="0.6" y2="1">
+      <stop offset="0%" stop-color="#3c2a52"/>
+      <stop offset="100%" stop-color="#4d3768"/>
+    </linearGradient>
+    
+    <pattern id="motif" width="110" height="110" patternUnits="userSpaceOnUse">
+      <path d="M55 20 C 80 25, 88 55, 68 74 C 55 86, 36 82, 32 66 C 29 52, 42 44, 52 50 C 60 55, 58 66, 50 68"
+            fill="none" stroke="#d9b6e0" stroke-width="2.6" opacity="0.7" stroke-linecap="round"/>
+      <circle cx="55" cy="33" r="2.8" fill="#e2b238" opacity="0.7"/>
+    </pattern>
+  </defs>
+  <rect width="600" height="600" fill="url(#g)"/>
+  <rect width="600" height="600" fill="url(#motif)"/>
+  <rect x="0" y="544" width="600" height="56" fill="#e2b238" opacity="0.9"/>
+  <rect x="0" y="0" width="600" height="18" fill="#e2b238" opacity="0.7"/>
+</svg>

@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" width="1600" height="900" role="img" aria-label="ব্যানার">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#f7efe2"/>
+      <stop offset="100%" stop-color="#e6d5b8"/>
+    </linearGradient>
+    
+    <pattern id="motif" width="90" height="90" patternUnits="userSpaceOnUse">
+      <path d="M45 18 L66 45 L45 72 L24 45 Z" fill="none" stroke="#b67719" stroke-width="2.5" opacity="0.75"/>
+      <path d="M45 32 L56 45 L45 58 L34 45 Z" fill="#b67719" opacity="0.5"/>
+      <circle cx="45" cy="45" r="3" fill="#b67719" opacity="0.9"/>
+    </pattern>
+    <radialGradient id="vig" cx="0.35" cy="0.4" r="0.85">
+      <stop offset="0%" stop-color="#000" stop-opacity="0"/>
+      <stop offset="100%" stop-color="#000" stop-opacity="0.35"/>
+    </radialGradient>
+  </defs>
+  <rect width="1600" height="900" fill="url(#g)"/>
+  <rect width="1600" height="900" fill="url(#motif)" opacity="0.85"/>
+  <rect x="0" y="810" width="1600" height="90" fill="#9e1f3a" opacity="0.9"/>
+  <rect x="0" y="802" width="1600" height="8" fill="#b67719" opacity="0.8"/>
+  <rect width="1600" height="900" fill="url(#vig)"/>
+</svg>
