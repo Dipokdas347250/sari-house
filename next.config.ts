@@ -3,6 +3,11 @@ import type { NextConfig } from 'next'
 const nextConfig: NextConfig = {
   reactCompiler: true,
 
+  // SQLite ফাইলটি সার্ভারলেস ফাংশনের বান্ডেলে যোগ করা
+  outputFileTracingIncludes: {
+    '/**': ['./dev.db'],
+  },
+
   images: {
     // দোকানের নিজের আপলোড করা ছবি /public/uploads এ থাকে।
     // বাইরের কোনো সোর্স ব্যবহার করতে চাইলে এখানে যোগ করুন।

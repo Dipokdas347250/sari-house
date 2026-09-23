@@ -45,6 +45,8 @@ next-env.d.ts
 # database
 *.db
 *.db-journal
+# Vercel এ রিড-অনলি ডাটাবেস হিসেবে পাঠানো হয়
+!/dev.db
 
 # uploaded media
 /public/uploads/*

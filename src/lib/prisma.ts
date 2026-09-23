@@ -1,10 +1,17 @@
+import path from 'node:path'
 import { PrismaBetterSqlite3 } from '@prisma/adapter-better-sqlite3'
 import { PrismaClient } from '@/generated/prisma/client'
 
 const createPrismaClient = () => {
-  const adapter = new PrismaBetterSqlite3({
-    url: process.env.DATABASE_URL ?? 'file:./dev.db',
-  })
+  // Vercel এর ফাইল সিস্টেম রিড-অনলি, তাই বান্ডেলের সাথে যাওয়া dev.db শুধু পড়ার জন্য খোলা হয়
+  const adapter = process.env.VERCEL
+    ? new PrismaBetterSqlite3({
+        url: path.join(process.cwd(), 'dev.db'),
+        readonly: true,
+      })
+    : new PrismaBetterSqlite3({
+        url: process.env.DATABASE_URL ?? 'file:./dev.db',
+      })
 
   return new PrismaClient({
     adapter,
